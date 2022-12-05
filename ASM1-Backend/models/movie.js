@@ -1,15 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 
-const Movie = require("./movie");
-
 const movie = path.join(
   path.dirname(process.mainModule.filename),
   "data",
   "movieList.json"
 );
 
-// const getMovesFromFile = (cb) => {
+// const getMoviesFromFile = (cb) => {
 //   fs.readFile(movie, (err, fileContent) => {
 //     if (err) {
 //       cb([]);
