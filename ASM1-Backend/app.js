@@ -11,11 +11,13 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 const movieRoutes = require("./routes/movie");
+const genreRoutes = require("./routes/genre");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/movie", movieRoutes);
+app.use(movieRoutes);
+app.use(genreRoutes);
 
 app.use(errorController.get404);
 

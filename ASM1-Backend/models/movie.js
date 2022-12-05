@@ -7,15 +7,15 @@ const movie = path.join(
   "movieList.json"
 );
 
-// const getMoviesFromFile = (cb) => {
-//   fs.readFile(movie, (err, fileContent) => {
-//     if (err) {
-//       cb([]);
-//     } else {
-//       cb(JSON.parse(fileContent));
-//     }
-//   });
-// };
+const getMoviesFromFile = (cb) => {
+  fs.readFile(movie, (err, fileContent) => {
+    if (err) {
+      cb([]);
+    } else {
+      cb(JSON.parse(fileContent));
+    }
+  });
+};
 
 module.exports = class Movie {
   constructor(
