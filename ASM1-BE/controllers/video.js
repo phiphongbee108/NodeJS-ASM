@@ -3,7 +3,7 @@ const Video = require("../models/Video");
 
 exports.getAllVideo = (request, response) => {
   Video.getAll((videos) => {
-    console.log("videos:", videos.length);
+    response.send(videos);
   });
 };
 

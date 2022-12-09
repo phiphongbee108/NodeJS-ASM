@@ -13,8 +13,11 @@ const { response } = require("express");
 const movieArrayLimit = 20;
 
 exports.getAllMovie = (request, response) => {
+  const currentPage = request.query.page ? parseInt(request.query.page) : 1;
   Movie.getAll((movies) => {
-    console.log("movies:", movies.length);
+    const result = pagingMovieList(movies, currentPage);
+    // console.log("result:", result);
+    response.send(result);
   });
 };
 
