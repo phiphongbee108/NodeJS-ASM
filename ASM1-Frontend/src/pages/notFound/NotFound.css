@@ -1,0 +1,7 @@
+.message_text {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: red;
+  font-size: 2rem;
+}

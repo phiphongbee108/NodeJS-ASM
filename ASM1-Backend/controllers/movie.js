@@ -1,7 +1,22 @@
 const Movie = require("../models/Movie");
 const Genre = require("../models/Genre");
+const { response } = require("express");
+
+// const fs = require("fs");
+// const path = require("path");
+// const folderLink = path.join(
+//   path.dirname(require.main.filename),
+//   "data",
+//   "testDataOutput.json"
+// );
 
 const movieArrayLimit = 20;
+
+exports.getAllMovie = (request, response) => {
+  Movie.getAll((movies) => {
+    console.log("movies:", movies.length);
+  });
+};
 
 // paging danh sách phim, 20 phim/page
 const pagingMovieList = (movies, page) => {
@@ -32,57 +47,41 @@ const pagingMovieList = (movies, page) => {
   return result;
 };
 
-exports.goHome = (req, res, next) => {
-  res.render("movie/index", {
-    pageTitle: "Home",
-    path: "/",
-  });
-};
-
-exports.getAllMovie = (req, res, next) => {
-  const currentPage = req.query.page ? parseInt(req.query.page) : 1;
-  Movie.fetchAll((movies) => {
-    const result = pagingMovieList(movies, currentPage);
-    // console.log("result:",result);
-    res.send(result);
-  });
-};
-
 // xử lí trả về danh sách phim trending
-exports.getTrendingMovie = (req, res, next) => {
-  const currentPage = req.query.page ? parseInt(req.query.page) : 1;
-  Movie.fetchAll((movies) => {
+exports.getTrendingMovie = (request, response) => {
+  const currentPage = request.query.page ? parseInt(request.query.page) : 1;
+  Movie.getAll((movies) => {
     movies.sort((a, b) => b.popularity - a.popularity);
     const result = pagingMovieList(movies, currentPage);
     // console.log("result:",result);
-    res.send(result);
+    response.send(result);
   });
 };
 
 // xử lí trả về danh sách phim bình chọn cao
-exports.getTopRateMovie = (req, res, next) => {
-  const currentPage = req.query.page ? parseInt(req.query.page) : 1;
-  Movie.fetchAll((movies) => {
+exports.getTopRateMovie = (request, response) => {
+  const currentPage = request.query.page ? parseInt(request.query.page) : 1;
+  Movie.getAll((movies) => {
     movies.sort((a, b) => b.vote_average - a.vote_average);
     const result = pagingMovieList(movies, currentPage);
     // console.log("result:",result);
-    res.send(result);
+    response.send(result);
   });
 };
 
 // xử lí trả về danh sách phim theo thể loại
-exports.getMovieByGenre = (req, res, next) => {
-  const genreID = parseInt(req.query.genre);
+exports.getMovieByGenre = (request, response, next) => {
+  const genreID = parseInt(request.query.genre);
   // console.log("genreID:", genreID);
   if (!genreID) {
-    res.statusMessage = "Not found gerne parram";
-    res.status(400).end();
+    response.statusMessage = "Not found gerne parram";
+    response.status(400).end();
   }
   if (genreID) {
     // gán số trang hiện tại để trả về response
-    const currentPage = req.query.page ? parseInt(req.query.page) : 1;
-    Movie.fetchAll((movies) => {
-      Genre.fetchAll((genres) => {
+    const currentPage = request.query.page ? parseInt(request.query.page) : 1;
+    Movie.getAll((movies) => {
+      Genre.getAll((genres) => {
         const movieByGenre = [];
         // lọc thể loại theo request id
         const genre = genres.find((genre) => genre.id === genreID);
@@ -100,10 +99,10 @@ exports.getMovieByGenre = (req, res, next) => {
           });
           // console.log("movieByGenre:", movieByGenre.length);
           const result = pagingMovieList(movieByGenre, currentPage);
-          res.send({ ...result, genreName: genre.name });
+          response.send({ ...result, genreName: genre.name });
         } else {
-          res.statusMessage = `Not found gerne id ${genreID} `;
-          res.status(400).end();
+          response.statusMessage = `Not found gerne id ${genreID} `;
+          response.status(400).end();
         }
       });
     });
@@ -111,14 +110,14 @@ exports.getMovieByGenre = (req, res, next) => {
 };
 
 // xử lí trả về danh sách phim theo từ khóa tìm kiếm
-exports.postSearchByKeyword = (req, res, next) => {
-  const keyword = req.body.keyword;
+exports.postSearchByKeyword = (request, response) => {
+  const keyword = request.body.keyword;
   console.log("keyword:", keyword);
   if (!keyword) {
-    res.statusMessage = "Not found keyword parram";
-    res.status(400).end();
+    response.statusMessage = "Not found keyword parram";
+    response.status(400).end();
   }
-  Movie.fetchAll((movies) => {
+  Movie.getAll((movies) => {
     const searchMovies = [];
     let existInOverview, existInTitle;
     // lọc phim có tên hoặc mô tả chứa từ khóa cần tìm
@@ -134,6 +133,6 @@ exports.postSearchByKeyword = (req, res, next) => {
       }
     });
     const result = pagingMovieList(searchMovies, 1);
-    res.send(result);
+    response.send(result);
   });
 };

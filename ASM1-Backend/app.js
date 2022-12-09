@@ -1,24 +1,25 @@
-const path = require("path");
-
+const http = require("http");
 const express = require("express");
-const bodyParser = require("body-parser");
-
-const errorController = require("./controllers/error");
+const cors = require("cors");
 
 const app = express();
 
-app.set("view engine", "ejs");
-app.set("views", "views");
+const movieRoute = require("./routes/movie");
+// const genreRoute = require("./routes/genre");
+// const userRoute = require("./routes/user");
+const videoRoute = require("./routes/video");
+const authRoute = require("./middleware/authorized");
+const notFoundRoute = require("./routes/404");
 
-const movieRoutes = require("./routes/movie");
-const genreRoutes = require("./routes/genre");
+app.use(cors());
+app.use(express.json());
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(authRoute.route);
+app.use("/api/movies", movieRoute.route);
+// app.use(genreRoute.route);
+// app.use(userRoute.route);
+app.use("/api/movies", videoRoute.route);
+app.use(notFoundRoute.route);
 
-app.use(movieRoutes);
-app.use(genreRoutes);
-
-app.use(errorController.get404);
-
-app.listen(8080);
+const server = http.createServer(app);
+server.listen(5000);

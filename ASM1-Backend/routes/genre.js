@@ -1,11 +1,9 @@
-const path = require("path");
-
 const express = require("express");
+const router = express.Router();
 
 const genreController = require("../controllers/genre");
 
-const router = express.Router();
-
+// route trả về danh sách thể loại
 router.get("/genres", genreController.getAllGenre);
 
-module.exports = router;
+exports.route = router;
