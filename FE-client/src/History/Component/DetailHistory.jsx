@@ -15,7 +15,7 @@ function DetailHistory(props) {
         sessionStorage.getItem("currentuser") === null
           ? []
           : JSON.parse(sessionStorage.getItem("currentuser"));
-      const response = await HistoryAPI.getDetail(query.data.user._id, id);
+      const response = await HistoryAPI.getDetail(query._id, id);
       console.log(response);
       const product = response.map((res) => res.products).flat(1);
 
@@ -32,7 +32,7 @@ function DetailHistory(props) {
 
     fetchData();
   }, []);
-  console.log(information);
+  
   return (
     <div className="container">
       <section className="py-5 bg-light">

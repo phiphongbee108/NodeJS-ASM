@@ -9,16 +9,17 @@ function MainHistory(props) {
     sessionStorage.getItem("currentuser") === null
       ? []
       : JSON.parse(sessionStorage.getItem("currentuser"));
+  
   useEffect(() => {
     const fetchData = async () => {
-      const response = await HistoryAPI.getHistoryAPI(query.data.user._id);
+      const response = await HistoryAPI.getHistoryAPI(query._id);
       console.log(response);
 
       setListCart(response);
     };
 
     fetchData();
-  }, [query.data.user._id]);
+  }, [query._id]);
   console.log(listCart);
 
   return (
