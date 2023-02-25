@@ -12,11 +12,11 @@ const UserAPI = {
   },
 
   postSignUp: (query) => {
-    const url = `http://localhost:5000/api/auth/singup/`;
+    const url = `https://asm3-be.glitch.me/api/auth/singup/`;
     return axiosClient.post(url, query);
   },
   postSignIng: (query) => {
-    const url = "http://localhost:5000/api/auth/logingadmin/";
+    const url = "https://asm3-be.glitch.me/api/auth/logingadmin/";
     return axiosClient.post(url, query);
   },
 };

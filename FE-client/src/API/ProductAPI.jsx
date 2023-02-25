@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const ProductAPI = {
   getAPI: () => {
-    const url = "http://localhost:5000/api/product";
+    const url = "https://asm3-be.glitch.me/api/product";
     return axiosClient.get(url);
   },
 
@@ -12,7 +12,7 @@ const ProductAPI = {
   },
 
   getDetail: (id) => {
-    const url = `http://localhost:5000/api/product/getproduct/${id}`;
+    const url = `https://asm3-be.glitch.me/api/product/getproduct/${id}`;
     return axiosClient.get(url);
   },
 

@@ -6,6 +6,7 @@ import { addSession } from "../Redux/Action/ActionSession";
 import "./Auth.css";
 import queryString from "query-string";
 import CartAPI from "../API/CartAPI";
+import Cookies from "js-cookie";
 
 function SignIn(props) {
   //listCart được lấy từ redux
@@ -54,6 +55,11 @@ function SignIn(props) {
       const response = await UserAPI.postSignIng(params);
 
       const user = response.data.user;
+      const ss = response.data.session;
+      const ssID = response.data.sessionID;
+
+      Cookies.set("ssID", ssID, { expires: 7 });
+      Cookies.set("user", user.fullname, { expires: 7 });
 
       response !== "false" ? setRedirect(true) : setRedirect(false);
       response !== "false"

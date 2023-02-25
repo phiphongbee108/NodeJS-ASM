@@ -13,11 +13,11 @@ const UserAPI = {
   // },
 
   postSignUp: (query) => {
-    const url = "http://localhost:5000/api/auth/singup";
+    const url = "https://asm3-be.glitch.me/api/auth/singup";
     return axiosClient.post(url, query);
   },
   postSignIng: (query) => {
-    const url = "http://localhost:5000/api/auth/signin";
+    const url = "https://asm3-be.glitch.me/api/auth/signin";
     return axios({
       url: url,
       headers: {
@@ -29,11 +29,11 @@ const UserAPI = {
     });
   },
   getSignIng: (query) => {
-    const url = "http://localhost:5000/api/auth/signin";
+    const url = "https://asm3-be.glitch.me/api/auth/signin";
     return axiosClient.get(url);
   },
   postLogout: () => {
-    const url = "http://localhost:5000/api/auth/logout";
+    const url = "https://asm3-be.glitch.me/api/auth/logout";
     return axiosClient.get(url);
   },
 };
