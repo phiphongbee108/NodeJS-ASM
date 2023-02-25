@@ -103,12 +103,12 @@ function Header(props) {
 
             {login && <Name />}
             {login ? <LoginLink /> : <LogoutLink />}
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" to={`/history`}>
                 <i className="fas fa-clipboard-list mr-1 text-gray"></i>
                 History
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>

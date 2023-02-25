@@ -32,7 +32,7 @@ function MainHistory(props) {
         : JSON.parse(sessionStorage.getItem("currentuser"));
 
     const fetchData = async () => {
-      const response = await HistoryAPI.getDelete(query.user._id, e._id);
+      const response = await HistoryAPI.getDelete(query._id, e._id);
     };
     fetchData();
     setLoad(true);
