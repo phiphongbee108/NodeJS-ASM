@@ -55,10 +55,10 @@ function SignIn(props) {
       const response = await UserAPI.postSignIng(params);
 
       const user = response.data.user;
-      const ss = response.data.session;
-      const ssID = response.data.sessionID;
+      // const ss = response.data.session;
+      // const ssID = response.data.sessionID;
 
-      Cookies.set("ssID", ssID, { expires: 7 });
+      // Cookies.set("ssID", ssID, { expires: 7 });
       Cookies.set("user", user.fullname, { expires: 7 });
 
       response !== "false" ? setRedirect(true) : setRedirect(false);

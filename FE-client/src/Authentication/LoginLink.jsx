@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import UserAPI from "../API/UserAPI";
+import Cookies from "js-cookie";
 function LoginLink(props) {
   const onRedirect = () => {
     const fetchData = async () => {
@@ -10,6 +11,7 @@ function LoginLink(props) {
     fetchData();
 
     sessionStorage.removeItem("currentuser");
+    Cookies.remove("user");
     window.location.reload();
   };
 

@@ -50,6 +50,7 @@ function Cart(props) {
         : JSON.parse(sessionStorage.getItem("currentuser"));
     const fetchData = async () => {
       const response = await CartAPI.getCarts(query._id);
+
       //const carts = response.map((cart) => cart.product);
       setCart(response);
 
@@ -109,10 +110,7 @@ function Cart(props) {
             <div className="bg-light px-4 py-3">
               <div className="row align-items-center text-center">
                 <div className="col-md-6 mb-3 mb-md-0 text-md-left">
-                  <Link
-                    className="btn btn-link p-0 text-dark btn-sm"
-                    to={`/`}
-                  >
+                  <Link className="btn btn-link p-0 text-dark btn-sm" to={`/`}>
                     <i className="fas fa-long-arrow-alt-left mr-2"> </i>
                     Continue shopping
                   </Link>

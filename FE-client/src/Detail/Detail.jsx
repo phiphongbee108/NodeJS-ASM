@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductAPI from "../API/ProductAPI";
-import { Link, useParams } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import alertify from "alertifyjs";
 import { addCart } from "../Redux/Action/ActionCart";
@@ -8,6 +8,8 @@ import CartAPI from "../API/CartAPI";
 import queryString from "query-string";
 import CommentAPI from "../API/CommentAPI";
 import convertMoney from "../convertMoney";
+import Cookies from "js-cookie";
+import { redirect } from "react-router-dom";
 
 function Detail(props) {
   const [detail, setDetail] = useState({});
@@ -87,7 +89,6 @@ function Detail(props) {
       const query = "?" + queryString.stringify(params);
 
       const response = await CommentAPI.postCommentProduct(query);
-      console.log(response);
 
       set_load_comment(true);
     };
@@ -181,7 +182,7 @@ function Detail(props) {
         productId: detail._id, // Lấy idProduct
         count: String(text), // Lấy số lượng
       };
-      
+
       const response = await CartAPI.postAddToCart(query._id, params);
     };
 
